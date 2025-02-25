@@ -4,11 +4,19 @@ import me.mogubea.main.Main;
 import me.mogubea.profile.MoguProfile;
 import me.mogubea.statistics.DirtyInteger;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Container;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Villager;
+import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.MerchantRecipe;
 
@@ -71,6 +79,38 @@ public class CommandDebug extends MoguCommand {
 				getPlugin().getProfileManager().resetDailyStats();
 				sender.sendMessage(Component.text("Reset daily stats."));
 				return true;
+			}
+			case "formatarea" -> {
+				Player player = (Player)sender;
+				Location location = player.getLocation();
+				int chunkRadius = args.length > 1 ? toIntDef(args[1], 0) : 0;
+				if (chunkRadius < 1) chunkRadius = 1;
+
+				int count;
+				World world = location.getWorld();
+
+				// Get current chunk coordinates
+				int centerX = location.getChunk().getX();
+				int centerZ = location.getChunk().getZ();
+
+				// Loop through chunks in radius
+				for (int x = centerX - chunkRadius; x <= centerX + chunkRadius; x++) {
+					for (int z = centerZ - chunkRadius; z <= centerZ + chunkRadius; z++) {
+						Chunk chunk = world.getChunkAt(x, z);
+						if (!chunk.isLoaded()) continue; // Skip unloaded chunks
+
+						// Get tile entity containers (Chests, Barrels, Hoppers, etc.)
+						for (BlockState blockState : chunk.getTileEntities())
+							if (blockState instanceof Container container)
+								container.getInventory().forEach((item) -> getPlugin().getItemManager().formatItemStack(item));
+
+						// Get entity inventories (Villagers, Minecarts, etc.)
+						for (Entity entity : chunk.getEntities()) {
+							if (entity instanceof InventoryHolder holder && !(entity instanceof ItemFrame))
+								holder.getInventory().forEach((item) -> getPlugin().getItemManager().formatItemStack(item));
+						}
+					}
+				}
 			}
 		}
 
