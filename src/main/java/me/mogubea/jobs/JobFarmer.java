@@ -29,34 +29,34 @@ public class JobFarmer extends Job {
         setDescription(Component.text("Earn $$$ by tending to a variety of crops!"));
 
         // These blocks care about the Age-able Data Tag, but not about Natural Tag.
-        makeCropPayout(Material.WHEAT, 5, 8);
-        makeCropPayout(Material.CARROTS, 5, 8);
-        makeCropPayout(Material.POTATOES, 5, 8);
-        makeCropPayout(Material.COCOA, 6, 9);
-        new FarmerReward(this, Material.SWEET_BERRY_BUSH, (block -> block.getBlockData() instanceof Ageable ageable ? ageable.getAge() >= 2 ? 4 * (ageable.getAge()-1) : 0 : 0), true, true, false, 0);
-        makeCropPayout(Material.NETHER_WART, 6, 9);
-        makeCropPayout(Material.BEETROOTS, 6, 9);
+        makeCropPayout(Material.WHEAT, 2, 5);
+        makeCropPayout(Material.CARROTS, 2, 5);
+        makeCropPayout(Material.POTATOES, 2, 5);
+        makeCropPayout(Material.COCOA, 2, 5);
+        new FarmerReward(this, Material.SWEET_BERRY_BUSH, (block -> block.getBlockData() instanceof Ageable ageable ? ageable.getAge() >= 2 ? 2 * (ageable.getAge()-1) : 0 : 0), true, true, false, 0);
+        makeCropPayout(Material.NETHER_WART, 2, 5);
+        makeCropPayout(Material.BEETROOTS, 2, 5);
 
         // These blocks don't care about Age-able and cannot be right-clicked to be harvested. These care about Natural Tag.
-        makeBlockPayout(Material.BAMBOO, 1, 1, 16, BlockFace.UP);
+        makeBlockPayout(Material.BAMBOO, 0, 1, 16, BlockFace.UP);
         makeBlockPayout(setSimilar(Material.KELP, Material.KELP_PLANT), 1, 1);
-        makeBlockPayout(Material.KELP_PLANT, 1, 1, 26, BlockFace.UP);
+        makeBlockPayout(Material.KELP_PLANT, 0, 1, 26, BlockFace.UP);
         makeBlockPayout(Material.CHORUS_PLANT, 0, 1, 50, BlockFace.UP, BlockFace.EAST, BlockFace.WEST, BlockFace.NORTH, BlockFace.SOUTH);
-        makeBlockPayout(Material.SUGAR_CANE, 3, 4, 5, BlockFace.UP);
+        makeBlockPayout(Material.SUGAR_CANE, 2, 3, 5, BlockFace.UP);
         makeBlockPayout(setSimilar(Material.CHORUS_FLOWER, Material.CHORUS_PLANT), 3, 6);
-        makeBlockPayout(Material.CACTUS, 6, 9, 5, BlockFace.UP);
+        makeBlockPayout(Material.CACTUS, 3, 4, 5, BlockFace.UP);
         makeBlockPayout(Material.AZALEA, 7, 10);
         makeBlockPayout(Material.FLOWERING_AZALEA, 7, 10);
-        makeBlockPayout(Material.PUMPKIN, 7, 10);
-        makeBlockPayout(Material.MELON, 7, 10);
+        makeBlockPayout(Material.PUMPKIN, 4, 6);
+        makeBlockPayout(Material.MELON, 4, 6);
 
         // Cave Vines have a tag to be checked for.
         new FarmerReward(this, setSimilar(Material.CAVE_VINES, Material.CAVE_VINES_PLANT), (block) -> block.getBlockData() instanceof CaveVinesPlant plant && plant.isBerries() ? getRandom().nextInt(4, 6) : 0, true, true, false, 0);
         new FarmerReward(this, Material.CAVE_VINES_PLANT, (block) -> block.getBlockData() instanceof CaveVinesPlant plant && plant.isBerries() ? getRandom().nextInt(4, 6) : 0, true, true, false, 22, BlockFace.DOWN);
 
         // Honey Harvesting, they can be Sheared and Harvested.
-        new FarmerReward(this, Material.BEEHIVE, (block -> block.getBlockData() instanceof Beehive hive && hive.getHoneyLevel() >= hive.getMaximumHoneyLevel() ? getRandom().nextInt(20, 31) : 0), false, true, true, 0);
-        new FarmerReward(this, Material.BEE_NEST, (block -> block.getBlockData() instanceof Beehive hive && hive.getHoneyLevel() >= hive.getMaximumHoneyLevel() ? getRandom().nextInt(20, 31) : 0), false, true, true, 0);
+        new FarmerReward(this, Material.BEEHIVE, (block -> block.getBlockData() instanceof Beehive hive && hive.getHoneyLevel() >= hive.getMaximumHoneyLevel() ? getRandom().nextInt(15, 22) : 0), false, true, true, 0);
+        new FarmerReward(this, Material.BEE_NEST, (block -> block.getBlockData() instanceof Beehive hive && hive.getHoneyLevel() >= hive.getMaximumHoneyLevel() ? getRandom().nextInt(15, 22) : 0), false, true, true, 0);
     }
 
     @Override

@@ -6,6 +6,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.entity.*;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,6 +24,9 @@ public class JobHunter extends Job {
 
         if (MoguTag.UNNATURAL_KILL.hasTag(e.getEntity())) return;
 
+        if (e.getEntity().getEntitySpawnReason() == CreatureSpawnEvent.SpawnReason.TRIAL_SPAWNER)
+            value *= 0.33;
+
         payout(profile, (int) (value * getRandom().nextDouble(0.9, 1.25)), Component.text("slaying a ", NamedTextColor.GRAY).append(e.getEntity().name().color(NamedTextColor.RED)), e.getEntity().getLocation().add(0, e.getEntity().getHeight() / 2, 0));
     }
 
@@ -36,7 +40,7 @@ public class JobHunter extends Job {
             case PILLAGER, ZOMBIFIED_PIGLIN, CREAKING -> 22;
             case WOLF -> ((Wolf)entity).getOwner() == null ? 12 : 0;
             case WITHER_SKELETON, ENDERMAN, ENDERMITE -> 25;
-            case SHULKER, IRON_GOLEM, BREEZE -> 30;
+            case SHULKER, BREEZE -> 30;
             case WITCH -> 40;
             case ZOGLIN -> 50;
             case PIGLIN_BRUTE, VINDICATOR, VEX -> 65;

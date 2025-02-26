@@ -45,7 +45,7 @@ public class JobCleric extends Job {
 
     @Override
     public void doFreshPotionEvent(@NotNull MoguProfile profile, @NotNull ItemStack itemStack, Location blockLocation) {
-        int value = (int) ((double)getPotionValue(itemStack) * getRandom().nextDouble(0.8, 1.5));
+        int value = (int) ((double)getPotionValue(itemStack) * getRandom().nextDouble(0.7, 1.3));
         if (value <= 0) return;
 
         PotionContents contents = itemStack.getData(DataComponentTypes.POTION_CONTENTS);

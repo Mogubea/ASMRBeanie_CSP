@@ -125,6 +125,11 @@ public class EntityListener extends EventListener {
             wither.setCanTravelThroughPortals(false);
             wither.setPersistent(false);
             wither.setGlowing(true);
+            return;
+        }
+
+        switch (e.getSpawnReason()) {
+            case NETHER_PORTAL, EGG, DISPENSE_EGG, BUILD_IRONGOLEM, BUILD_SNOWMAN -> MoguTag.UNNATURAL_KILL.applyTag(e.getEntity(), true);
         }
     }
 

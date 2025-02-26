@@ -1,7 +1,6 @@
 package me.mogubea.jobs;
 
 import me.mogubea.profile.MoguProfile;
-import me.mogubea.statistics.SimpleStatType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;

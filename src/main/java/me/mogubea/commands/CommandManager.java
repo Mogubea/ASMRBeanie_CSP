@@ -44,7 +44,7 @@ public class CommandManager {
 		registerCommand(new CommandPickupfilter(plugin));
 
 		moguCommands = Map.copyOf(moguCommands);
-		plugin.getSLF4JLogger().info("Registered " + moguCommands.size() + " commands in " + (System.currentTimeMillis() - millis) + "ms");
+        plugin.getSLF4JLogger().info("Registered {} commands in {}ms", moguCommands.size(), System.currentTimeMillis() - millis);
 	}
 
 	/**
