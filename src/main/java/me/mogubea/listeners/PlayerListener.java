@@ -21,6 +21,7 @@ import org.bukkit.block.data.type.Beehive;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
@@ -117,11 +118,14 @@ public class PlayerListener extends EventListener {
                 }
             }
 
-            if (!doWater) return;
-            handItem.setAmount(handItem.getAmount() - 1);
-            ItemStack waterBottle = new ItemStack(Material.POTION);
-            waterBottle.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().potion(PotionType.WATER));
-            player.give(Set.of(formatItem(waterBottle)));
+            if (doWater) {
+                handItem.setAmount(handItem.getAmount() - 1);
+                ItemStack waterBottle = new ItemStack(Material.POTION);
+                waterBottle.setData(DataComponentTypes.POTION_CONTENTS, PotionContents.potionContents().potion(PotionType.WATER));
+                player.give(Set.of(formatItem(waterBottle)));
+            } else if (e.useInteractedBlock().equals(Event.Result.ALLOW)) { // Needs more testing, could destroy the entire point in these checks or not work at all
+                e.setCancelled(false);
+            }
         }
     }
 
